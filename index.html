@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css"> <!-- Include your CSS file -->
+    <title>Login</title>
+</head>
+<body>
+    <div class="login-container">
+        <img src="images/sfit.png" alt="College Logo" class="college-logo">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="text" id="NAME" name="name" placeholder="NAME" required>
+            <input type="email" id="EMAIL" name="email" placeholder="EMAIL" required>
+            <button type="submit">Login</button>
+            <p id="error-message" style="color: red;"></p>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+            const name = document.getElementById('NAME').value;
+            const email = document.getElementById('EMAIL').value;
+
+            if (name && email) {
+                // Prepare form data to send
+                const formData = new FormData();
+                formData.append('name', name);
+                formData.append('email', email);
+
+                // Send form data to Google Apps Script
+                fetch('https://script.google.com/macros/s/AKfycbxUfX285pch7TUMwm9mxwnx8PDBcGQoomY13srYCaki45sHDZe0lu9VZS6XgZ90O405/exec', {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: formData
+                }).then(response => {
+                    // Redirect to your home page after successful submission
+                    window.location.href = 'home.html'; // Redirect to your portfolio's home page
+                }).catch(error => {
+                    console.error('Error!', error.message);
+                    document.getElementById('error-message').innerText = 'Error submitting data. Please try again.';
+                });
+            } else {
+                document.getElementById('error-message').innerText = 'Please enter valid credentials.';
+            }
+        });
+    </script>
+</body>
+</html>

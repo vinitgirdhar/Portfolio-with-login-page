@@ -1,0 +1,25 @@
+In this project, I integrated Google Sheets with a MySQL database to facilitate seamless data management and accessibility. By using the Google Sheets API and PHP, I created a dynamic system where data entered in a Google Sheet is automatically synced with the MySQL database. This allows for real-time updates and easy data manipulation without the need for direct database access.
+
+Key Features:
+
+Data Synchronization: Any changes made in the Google Sheets are reflected in the MySQL database instantly, ensuring that the database always contains the most up-to-date information.
+User-Friendly Interface: The use of Google Sheets provides a familiar and intuitive interface for data entry and management, making it accessible for users without technical expertise.
+Efficient Data Management: This integration streamlines data handling processes, allowing for efficient record keeping, reporting, and analysis.
+
+
+CODE UPLOADED ON GOOGLE SPREAD SHEET 
+
+function doPost(e) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  
+  // Parse form data sent via POST request
+  var name = e.parameter.name;
+  var email = e.parameter.email;
+  var loginTime = new Date();
+
+  // Append the data to the sheet
+  sheet.appendRow([name, email, loginTime]);
+
+  // Create a response for the form submission
+  return ContentService.createTextOutput("Data stored successfully");
+}
